@@ -26,7 +26,20 @@ You need to add all required keys:
 - `VITE_WORLDNEWS_KEY`
 
 6. Click **Save and Encrypt**.
-7. Go to the **Deployments** tab and click **Retry deployment** so the new build has access to your keys!
+
+---
+
+## CRITICAL: Bind your D1 Database 
+Before you click retry deployment, you MUST bind the D1 database to your Pages script so the APIs actually know the database exists!
+
+1. Still inside your Pages project settings on the Cloudflare Dashboard, go to **Settings** -> **Functions** (or **Bindings** depending on your dashboard version).
+2. Scroll down to **D1 database bindings**.
+3. Click **Add binding**.
+4. Set the **Variable name** strictly to: `DB` *(Must be uppercase DB as written in your codebase).*
+5. For the **D1 namespace**, select your actual database name (e.g., `supersearch_db` or whatever you called your D1 instance).
+6. Click **Save**.
+
+Now go to the **Deployments** tab and click **Retry deployment** so the new build connects both to your secret API keys and the live Database!
 
 ---
 
