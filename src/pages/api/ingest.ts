@@ -3,6 +3,8 @@ import { drizzle } from 'drizzle-orm/d1';
 import { signals as signalsSchema, companies as companiesSchema } from '../../db/schema';
 import { XMLParser } from 'fast-xml-parser';
 
+export const prerender = false;
+
 export const ALL: APIRoute = async ({ request, locals }) => {
   const env = (locals as any).runtime?.env;
   if (!env || !env.DB) {
