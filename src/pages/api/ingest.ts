@@ -6,7 +6,14 @@ import { XMLParser } from 'fast-xml-parser';
 export const ALL: APIRoute = async ({ request, locals }) => {
   const env = (locals as any).runtime?.env;
   if (!env || !env.DB) {
-    return new Response(JSON.stringify({ error: "Cloudflare D1 Binding 'DB' not found." }), { status: 500 });
+    return new Response(JSON.stringify({ 
+      error: "Cloudflare D1 Binding 'DB' not found.",
+      diagnostics: {
+        hasEnvObject: !!env,
+        availableInjects: env ? Object.keys(env).filter(k => !k.includes('KEY')) : "none", // omit key values
+        localsKeys: Object.keys(locals)
+      }
+    }), { status: 500 });
   }
   const db = drizzle(env.DB);
   
