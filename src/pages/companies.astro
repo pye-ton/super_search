@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CompanyDirectory from '../components/CompanyDirectory';
+---
+
+<Layout title="Company Directory | SuperSearch">
+  <main class="relative z-10 max-w-5xl mx-auto p-4 md:p-8 space-y-8">
+    <header class="flex justify-between items-end border-b border-zinc-800 pb-4">
+      <div>
+        <h1 class="text-2xl font-black tracking-tighter text-white">INTELLIGENCE_ROUTER <span class="text-blue-500 text-xs">Index Scanner</span></h1>
+        <p class="text-[10px] text-zinc-500 uppercase">Proprietary Corporate Directory</p>
+      </div>
+    </header>
+
+    <div class="mt-8">
+      <CompanyDirectory client:load />
+    </div>
+    
+    <div class="terminal-glass p-6 rounded-xl border border-zinc-800/50 mt-8 text-center">
+       <h3 class="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-2">Want the 2,200+ H-1B Startups List?</h3>
+       <p class="text-[10px] text-zinc-500 font-mono mb-4 leading-relaxed max-w-lg mx-auto">While the active radar table above tracks only companies involved in breaking financial news over the last 7 days, you can download the massive static dataset of Visa-sponsoring startups below.</p>
+       <a href="/startups_h1b_database.csv" target="_blank" class="inline-flex items-center justify-center rounded-md text-sm font-medium h-9 px-6 bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-700 font-mono">
+          DOWNLOAD CSV_ARCHIVE
+       </a>
+    </div>
+  </main>
+</Layout>

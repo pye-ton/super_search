@@ -1,0 +1,48 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MarketTicker from '../components/MarketTicker';
+import SearchTerminal from '../components/SearchTerminal';
+import RssWidget from '../components/RssWidget.astro';
+
+const alphaKey = import.meta.env.VITE_ALPHA_VANTAGE_KEY || '';
+const deepseekKey = import.meta.env.VITE_DEEPSEEK_KEY || '';
+---
+
+<Layout title="SuperSearchPortal v1 | Bloomberg for Job Seekers">
+  <main class="relative z-10 max-w-7xl mx-auto p-4 md:p-8 space-y-6">
+    
+    <header class="flex justify-between items-end border-b border-zinc-800 pb-4">
+      <div>
+        <h1 class="text-2xl font-black tracking-tighter text-white">SUPER_SEARCH_PORTAL <span class="text-green-500 text-xs">v1.0.4-STABLE</span></h1>
+        <p class="text-[10px] text-zinc-500 uppercase">Status: Terminal Operational // Location: Global Tech Hubs</p>
+      </div>
+      <div class="text-right">
+        <div id="clock" class="text-xl font-bold text-zinc-100">00:00:00</div>
+      </div>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+      <RssWidget title="TechCrunch" url="https://techcrunch.com/feed/" theme="green" />
+      <RssWidget title="VentureBeat" url="https://feeds.feedburner.com/venturebeat/SZYF" theme="blue" />
+    </div>
+
+    <MarketTicker client:load alphaKey={alphaKey} deepseekKey={deepseekKey} />
+
+    <!-- SearchTerminal provides the Tag Clouds & Construction Logic requested in Phase 4/5 -->
+    <SearchTerminal client:load />
+
+    <footer class="mt-12 flex items-center justify-end gap-4 text-[10px] text-zinc-600 font-mono">
+      <span>IP_MASKED: TRUE</span>
+      <span>RATE_LIMIT_GUARD: ACTIVE</span>
+      <span class="text-green-900">● SYSTEM_OPTIMAL</span>
+    </footer>
+  </main>
+
+  <script>
+    // Real-time Terminal Clock
+    setInterval(() => {
+      const el = document.getElementById('clock');
+      if (el) el.innerText = new Date().toLocaleTimeString();
+    }, 1000);
+  </script>
+</Layout>

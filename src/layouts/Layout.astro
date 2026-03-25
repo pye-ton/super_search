@@ -1,0 +1,36 @@
+---
+interface Props { title: string; }
+const { title } = Astro.props;
+import '../styles/terminal.css';
+---
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+</head>
+<body class="bg-[#050505] text-zinc-300 font-mono selection:bg-green-500 selection:text-black m-0 p-0">
+    <!-- Adds a subtle noise texture to background for the 21st.dev aesthetic -->
+    <div class="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none z-[-1]"></div>
+    
+    <nav class="border-b border-zinc-800/50 bg-black/80 backdrop-blur-md sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 md:px-8 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <a href="/" class="text-white font-black tracking-tighter hover:text-green-500 transition">SUPER_SEARCH</a>
+          <span class="px-2 py-0.5 rounded text-[8px] font-black bg-zinc-800 text-zinc-400 tracking-widest border border-zinc-700">OMEGA</span>
+        </div>
+        <div class="flex gap-4 md:gap-6 text-[10px] md:text-xs font-bold text-zinc-400 tracking-widest uppercase items-center">
+          <a href="/" class="hover:text-white transition">Terminal</a>
+          <a href="/signals" class="hover:text-purple-400 transition">Signals</a>
+          <a href="/companies" class="hover:text-blue-400 transition">Featured</a>
+          <a href="/startups" class="hover:text-green-400 transition">H1B DB</a>
+        </div>
+      </div>
+    </nav>
+
+    <slot />
+</body>
+</html>

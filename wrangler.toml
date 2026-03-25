@@ -1,0 +1,9 @@
+name = "supersearch"
+compatibility_date = "2024-01-01"
+
+# Bind a D1 database named "supersearch_db"
+# This allows Astro to access env.DB for Drizzle ORM
+[[d1_databases]]
+binding = "DB" # Available in Astro's locals.runtime.env.DB
+database_name = "supersearch_db"
+database_id = "ff1959e5-20f7-42e8-bcd7-2ac8b2961dd3" # Local dev ID

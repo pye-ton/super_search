@@ -1,0 +1,44 @@
+---
+import { XMLParser } from 'fast-xml-parser';
+
+export interface Props {
+  title: string;
+  url: string;
+  theme?: 'green' | 'blue' | 'purple';
+}
+const { title, url, theme = 'green' } = Astro.props;
+
+let items: any[] = [];
+try {
+  const res = await fetch(url);
+  const xml = await res.text();
+  const parser = new XMLParser();
+  const obj = parser.parse(xml);
+  items = obj?.rss?.channel?.item?.slice(0, 6) || [];
+} catch(e) {
+  console.error("RSS fetch failed", e);
+}
+
+const themeColor = theme === 'green' ? 'text-green-400 bg-green-500' : 
+                   theme === 'blue' ? 'text-blue-400 bg-blue-500' : 'text-purple-400 bg-purple-500';
+---
+
+<div class="terminal-glass rounded-xl p-5 border border-zinc-800/80 shadow-lg relative overflow-hidden group hover:border-zinc-600 transition h-full">
+  <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"></div>
+  
+  <div class="flex items-center gap-3 mb-4 border-b border-zinc-800/50 pb-2">
+    <div class={`w-2 h-2 rounded-full ${themeColor.split(' ')[1]} animate-pulse shadow-[0_0_10px_currentColor]`}></div>
+    <h3 class={`text-xs font-black uppercase tracking-widest ${themeColor.split(' ')[0]}`}>{title} // Live Stream</h3>
+  </div>
+  
+  <div class="space-y-4 overflow-y-auto custom-scroll pr-2 h-40">
+    {items.length > 0 ? items.map((item) => (
+      <a href={item.link} target="_blank" class="block group/link border-l-2 border-zinc-800 pl-3 hover:border-zinc-500 transition">
+        <h4 class="text-[12px] text-zinc-300 font-bold group-hover/link:text-white leading-tight font-mono">{item.title}</h4>
+        <p class="text-[9px] text-zinc-500 font-mono mt-1">{item.pubDate ? new Date(item.pubDate).toLocaleDateString() : 'Just now'}</p>
+      </a>
+    )) : (
+      <p class="text-[10px] text-zinc-600 font-mono">Connecting to orbital feed...</p>
+    )}
+  </div>
+</div>
