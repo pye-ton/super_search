@@ -3,6 +3,8 @@ import { drizzle } from 'drizzle-orm/d1';
 import { signals as signalsSchema, companies as companiesSchema } from '../../db/schema';
 import { desc, gte } from 'drizzle-orm';
 
+export const prerender = false;
+
 export const GET: APIRoute = async ({ locals }) => {
   const env = (locals as any).runtime?.env;
   if (!env || !env.DB) {
